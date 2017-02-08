@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." default="run" name="TestNg">
+	<target name="run" depends="compile">
+		<java classname="TestClass">
+			<classpath path="Staging"></classpath>
+		</java>
+</target>
+
+<target name="compile" >
+<javac includeantruntime="fals" srcdir="./src" destdir="Staging" />
+</target>
+</project>
+
