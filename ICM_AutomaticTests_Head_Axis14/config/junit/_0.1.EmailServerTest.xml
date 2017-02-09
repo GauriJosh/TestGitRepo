@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="EmailServerTests" verbose="3">
+
+	<parameter name="URL" value="localhost" />
+	<parameter name="PORT" value="18087" />
+	<parameter name="DEFAULT_EMAIL_SERVER_PORT" value="18094" />
+	<parameter name="NEW_EMAIL_PORTS" value="18100 18098" />
+	<parameter name="EMAIL_HOST" value="" />
+	
+	
+	
+	<test name="EmailServerTest" preserve-order="true">
+
+		<classes>
+			<class name="com.ibm.icm.testing.EmailServerTests">
+				<methods>
+					<exclude name="initialize"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

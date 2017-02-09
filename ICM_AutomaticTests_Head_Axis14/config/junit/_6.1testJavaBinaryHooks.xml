@@ -1,0 +1,63 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestJavaBinaryHooks" verbose="3">
+	<parameter name="DOC_NVP" value="Document" />
+	<parameter name="TEXT_NVP" value="Body" />
+	<parameter name="BINARY_NVP" value="BinaryField" />
+	<!-- aix parameter name="URL" value="9.148.51.164" / -->
+	
+	<parameter name="KB_START_TIMEOUT" value="60000" />
+	<parameter name="ICM_HOME" value="C:\IBM\ContentClassification88" />
+	<parameter name="DATA_PATH" value="C:\develop\ICM\automatic_tests\data" />
+	<parameter name="LANGS" value="English" />
+	<parameter name="DP_RO" value="1" />
+	<parameter name="DP_FILE" value="AllHooks.dpn" />
+	<!-- This is the path to the dp file. -->
+	<parameter name="DP_NAME" value="AllHooks" />
+	<parameter name="KB_NAME" value="" />
+	<parameter name="KB_FILE" value="" />
+	<parameter name="DP_VERSION" value="false" />
+	<parameter name="KB_RO" value="1" />
+	<parameter name="LEARNING_MODE" value="1" />
+	<parameter name="SARC_FILE" value="" />
+	<parameter name="LEARNING_SPEED" value="1" />
+	<parameter name="SERVICE_NAME" value="ICM88ProcessManager" />
+	<parameter name="SERVICE_STOP_TIMEOUT" value="1000" />
+	<!-- the full path to the input files. All files there will be tested. -->
+
+	<!-- new output files will be written here. these are the same format as 
+		the golds, and can be used for gold files. -->
+
+	<!-- whether you want to compare the files you made to their gold version -->
+	<parameter name="RETURN_FIELD" value="no" />
+
+	<parameter name="BUFFER_LIMIT" value="1071232" />
+	<test name="testJavaBinaryHook" preserve-order="true">
+		<parameter name="EXPECTED_FIELD" value="BufferSize" />
+		<parameter name="EXPECTED_VALUE" value="another field value returned by hook" />
+		<parameter name="SOURCE_FILE" value="BinToStr_Jane.class" />
+		<classes>
+			<class name="com.ibm.icm.testing.BinaryHookTest">
+				<methods>
+					<include name="initialize" />
+					<include name="addBinaryDocumentEntry" />
+					<include name="testHook" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="testJavaInMemoryHook" preserve-order="true">
+		<parameter name="EXPECTED_FIELD" value="Field name sent from the DP" />
+		<parameter name="EXPECTED_VALUE" value="This was the input field: the original value sent to the hook in the body field." />
+		<parameter name="SOURCE_FILE" value="InMemoryHookStr_Jane.class" />
+		<classes>
+			<class name="com.ibm.icm.testing.BinaryHookTest">
+				<methods>
+					<include name="initialize" />
+					<include name="addBinaryDocumentEntry" />
+					<include name="testHook" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

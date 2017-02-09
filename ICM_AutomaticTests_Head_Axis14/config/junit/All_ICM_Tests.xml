@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="All_ICM_Tests" verbose="1" parallel="false" >
+
+  <suite-files>
+    <suite-file path="./_0.2.ServiceTest.xml" />
+    <suite-file path="./_0.0.ICMVersionTest.xml" />
+    <suite-file path="./_0.1.EmailServerTest.xml" />
+    <suite-file path="./_0.3.ListenerTest.xml" />
+    <suite-file path="./_0.4.DpCheckversionTest.xml"/>
+    <suite-file path="./_1.0.B2A2BDictionaryTest.xml"/>
+    <suite-file path="./_2.1ArchiveTest.xml" />
+    <suite-file path="./_2.2KBTest.xml" />
+    <suite-file path="./_3.7RunFunctionsOverFolder.xml" />
+    <suite-file path="./_4testDPFeatures.xml" />
+    <suite-file path="./_6.1TestJavaBinaryHooks.xml"/> 
+  </suite-files>
+ </suite>
+  

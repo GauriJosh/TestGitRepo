@@ -1,0 +1,144 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestInputOutputFields" verbose="3">
+	
+
+<!-- NOTE: These are specified outside of the XML file, since they depend on the machine and we don't want to have them hard coded
+	They are specified in Jenkins for runnning tests. For local testing, define these in your run configuration. -->
+<!-- <parameter name="PORT" value="18087" /> -->
+<!-- <parameter name="URL" value="localhost" /> -->
+<!-- <parameter name="DATA_PATH" value="C:\develop\icm\automatic_tests\data" /> --> <!-- Used by ICMBaseTest - this is the path to data such as the KB and DP files to create -->
+<!-- <parameter name="ICM_HOME" value="C:\IBM\ContentClassification" /> -->
+<parameter name="DOC_FOLDER" value="C:\develop\ICM\automatic_tests\data\docs\feedbackErrors\" /> <!-- This is the path to the test data  -->
+<parameter name="OUTPUT_FOLDER" value="C:\develop\icm\automatic_tests\output\" /> <!-- TODO: Not yet implemented -->
+<!-- <parameter name="GOLD_FOLDER" value="C:\develop\icm\automatic_tests\data\golds_88GA_WindowsServer2003\" /> --> <!-- TODO: Not yet implemented -->
+	
+	<!-- NVPs used by the test  -->
+	<parameter name="DOCUMENT_NVP" value="MyDocument" />
+	<parameter name="TEXT_NVP" value="TextField" /> <!--  TODO: Is this used?-->
+	
+	<!-- iterations over document folder -->
+	<parameter name="ITERATIONS" value="3" />
+	
+
+	<!--  DP settings - see other (old) settings at the bottom of this file -->
+	<parameter name="DP_FILE" value="DecisionPlanTutorial.dpn" />
+	<parameter name="DP_NAME" value="Decision Plan Tutorial" />
+	<parameter name="DP_VERSION" value="no" />
+	<parameter name="DP_RO" value="2" />
+
+	<!--  KB settings - see other (old) settings at the bottom of this file -->
+	<parameter name="KB_NAME" value="Knowledge Base Tutorial" />
+	<parameter name="KB_FILE" value="kbtutorial_5000catsize.kb" />
+	<parameter name="LEARNING_MODE" value="archive" />
+	<parameter name="LEARNING_SPEED" value="1" />
+	<parameter name="KB_RO" value="2" />
+	<parameter name="SARC_FILE" value="Knowledge Base Tutorial.sarc" />
+	<parameter name="KB_START_TIMEOUT" value="60000" />
+	
+	<parameter name="LANGS" value="English" /> <!-- Used for DP and KB creation as well as other functions that need a language provided -->
+
+	<parameter name="DPKBNULL" value="no" />
+	<parameter name="DOCNULL" value="no" />
+	<parameter name="DPCONFIGNULL" value="no" />
+
+
+	<test name="Test Functions On All Files In Folder" preserve-order="true">
+		<classes>
+			<class name="com.ibm.icm.testing.RunFunctionsOverFolderTest"></class>
+		</classes>
+	</test>
+</suite>
+
+
+<!--  NOTE: Everything below this line was in the original XML file for running this test. Leaving it in as there were a lot of values 
+      for various parameters, as well as other parameters that may be good to have a history of so I wanted to leave a reference to them. 
+-->
+
+<!-- TODO: this still needs to be transferred from AdminFunctions to AdminServerUtils 	<include name="addTextField"/> -->
+
+<!--  CLEANUP: There are a lot of parameters named "DP_FILE". Which one do we need?
+               For now, using the last one in the list
+
+	<parameter name="DP_FILE" value="DP_referencedKBlongname90.dpn" />
+	<parameter name="DP_FILE" value="DP_referencedKBlongname50.dpn" />
+	<parameter name="DP_FILE" value="decisionPlanLongNameRef.dpn" />
+	<parameter name="DP_FILE" value="DP_referencedKBlongname100.dpn" />
+	<parameter name="DP_FILE" value="DP_referencedKBlongname90.dpn" />
+	<parameter name="DP_FILE" value="DP_referencedKBlongname200.dpn" />
+	<parameter name="DP_FILE" value="DecisionPlanTutorial.dpn" />
+-->
+
+<!--  CLEANUP: There are a lot of parameters named "KB_NAME". Which one do we need?
+               For now, using the last one in the list
+	
+	<parameter name="KB_NAME" value="KB50______1234567890123456789012345678901234567890" />
+	<parameter name="KB_NAME" value="kb90______12345678901234567890123456789012345678901234567890123456789012345678901234567890" />
+	<parameter name="KB_NAME" value="KB120_678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789" />
+	<parameter name="KB_NAME" value="KB100_____123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" />
+	<parameter name="KB_NAME" value="kb90______12345678901234567890123456789012345678901234567890123456789012345678901234567890" />
+	<parameter name="KB_NAME" value="KB200_____123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890KB200_____123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" />
+	<parameter name="KB_NAME" value="online retail" />
+	<parameter name="KB_NAME" value="Knowledge Base Tutorial" />
+	<parameter name="KB_FILE" value="kbtutorial_5000catsize.kb" />
+-->
+
+<!--  CLEANUP: The following settings don't seem to be used. Delete? -->	
+<!-- <parameter name="ARCHIVE_FREQ" value="3" /> -->
+<!-- <parameter name="CACHE_SIZE" value="0" /> -->
+<!-- <parameter name="NUM_FB" value="20" /> -->
+<!-- <parameter name="FB_SECS" value="50" /> -->
+<!-- <parameter name="KB_VERSION" value="true" /> -->
+<!-- <parameter name="FEEDBACK_MODE" value="immediateFeedbackMode" /> -->
+<!-- <parameter name="STRING" value="Do you take visa?" />	-->
+<!-- <parameter name="CATNULL" value="false" /> --> <!-- try to send null to cat list in feedback --> 
+<!-- <parameter name="FUNCTIONS_TO_RUN" value="*suggest**suggestID**feedback**decideID**decideFeedback**feedbackID**decide**decideReclassify*" /> -->	
+
+	<!-- CLEANUP: Leaving one value only -->	
+	<!-- <parameter name="SARC_FILE" value="" /> 
+	<parameter name="SARC_FILE" value="kbtutorial_5000catsize.sarc" />
+	<parameter name="SARC_FILE" value="KnowledgeBaseTutorial_reserved.sarc" />  -->
+
+<!-- the full path to the input files. All files there will be tested. -->
+<!-- CLEANUP: Leaving one value only -->
+<!--  <parameter name="DOC_FOLDER" value="C:\develop\ICM\automatic_tests\data\docs\feedbackErrors" /> -->
+
+<!--<parameter name="DOC_FOLDER" value="C:\develop\ICM\automatic_tests\data\docs\feedbackErrors" />
+	<parameter name="DOC_FOLDER" value="C:\data\mixed_nonemails\mixed_nonemails" />
+	<parameter name="DOC_FOLDER" value="C:\data\mixed_nonemails\pdfs" />
+	<parameter name="DOC_FOLDER" value="C:\data\data4guardium" />
+	<parameter name="DOC_FOLDER" value="C:\Users\qaadmin\Desktop\docFilterData" /> -->
+
+<!-- if COMPARE2GOLD is yes then it will look for gold files here -->
+<!-- <parameter name="GOLD_FOLDER" value="C:\develop\icm\automatic_tests\data\golds_88GA_WindowsServer2003\" /> -->
+	
+
+<!-- new output files will be written here. these are the same format as the golds, and can be used for gold files. -->
+<!--  <parameter name="OUTPUT_FOLDER" value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults" /> -->
+<!--  <parameter name="OUTPUT_FOLDER" value="C:\develop\icm\automatic_tests\output" />  -->
+
+<!--  CLEANUP: This looks like it was copied over from other tests and is not used in this test 
+	<parameter name="NVPS2CHECK"
+		value="**Body**ICM_Subject**ICM_Title**ICM_To**ICM_To_Address**ICM_SentDate**ICM_Author****Attachment.Body**Attachment.FilterInfo**Attachment.ICM_Subject**Attachment.ICM_Title**Attachment.ICM_To**Attachment.ICM_To_Address**Attachment.ICM_SentDate**ICM_Author**FilterInfo" />
+	 this is a list of fields to write to text gold files. delimited with ** -->
+
+<!--  CLEANUP: These look like they were all copied over from other tests (Specifically, "_3TestInputFields") and are not used in this test -->
+<!--  <parameter name="PrintXML" value="true" /> --> <!-- whether you want to print and compare the dp xml results -->
+<!--  <parameter name="PrintText" value="true" /> --> <!-- whether you want to print the more limited by field name files -->
+<!-- <parameter name="COMPARE2GOLD" value="yes" /> -->
+<!-- <parameter name="RUN_ANALYSIS" value="yes" /> -->	<!-- whether you want to compare the files you made to their gold version -->
+<!-- <parameter name="RUN_ANALYSIS" value="no" /> -->
+
+
+<!--  CLEANUP: This parameter was in the XML but doesn't seem to be used. -->	
+	<!-- limit kb name to
+	<parameter name="KB_NAME_LENGTH" value="200" />
+-->
+
+
+    <!-- CLEANUP: SEEMS NOT STO BE USED; There are other NVP's that are document_nvps that are used in the tests...-->
+	<!-- <parameter name="NVP" value="Document" /> --> <!-- document nvp: -->	
+	<!-- parameter name="NewDictionaryField" value="MyDocument" /> OLD - now covered with the DOCUMENT_NVP -->
+
+
+<!--  CLEANUP: This was already commented, Should we delete? -->
+	<!-- parameter name="ARCHIVE2KB_RATE" value="5" / -->

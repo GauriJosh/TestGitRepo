@@ -1,0 +1,35 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="DPCheckVersionTests" verbose="3">
+
+<!-- 	<parameter name="DATA_PATH" value="C:\develop\icm\automatic_tests\data" />  -->
+		<!-- dp versioning on true or false -->
+		
+	<parameter name="KB_FILE" value="KnowledgeBaseTutorial.kb" />
+	<parameter name="KB_NAME" value="Knowledge Base Tutorial" />
+	<parameter name="KB_START_TIMEOUT" value="60000" />
+	<parameter name="LEARNING_MODE" value="online" />
+	<parameter name="LEARNING_SPEED" value="1" />
+	<parameter name="KB_RO" value="0" />
+	<parameter name="DP_VERSION" value="true" />
+	<!-- decision plan dpn file -->
+	<parameter name="DP_FILE" value="DecisionPlanTutorial.dpn" />
+	<!-- decision plan name -->
+	<parameter name="DP_NAME" value="Decision Plan Tutorial" />
+
+	<!-- decision plan read only instances -->
+	<parameter name="DP_RO" value="2" />
+	<parameter name="LANGS" value="English" />
+	<parameter name="STRING"
+		value="We would like to archive our Lotus notes, what program would you suggest?" />
+	<test name="ListenerTest" preserve-order="true">
+
+		<classes>
+			<class name="com.ibm.icm.testing.DPCheckVersionTest">
+					<methods>
+					<exclude name="initialize"/>
+			
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

@@ -1,0 +1,72 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestDeepAdmin" verbose="3">
+
+	
+	<parameter name="DATA_PATH" value="C:\develop\icm\automatic_tests\data" />
+	<parameter name="KB_FILE" value="KnowledgeBaseTutorial.kb" />
+	<!-- KB learning type. If the value is 'archive' then archive, any other 
+		value is non-archive -->
+	<parameter name="KB_MODE" value="regular" />
+	<!-- number of feedback and seconds before learning buffer is sent to server -->
+
+	<parameter name="NUM_FB" value="10" />
+	<parameter name="FB_SECS" value="10" />
+	<!-- number of feedback given to SARC before it teaches KB -->
+	<parameter name="ARCHIVE_FREQ" value="10" />
+	
+	
+	<!-- kb learning mode (you can see this in the MC) -->
+	<parameter name="FEEDBACK_MODE" value="immediateFeedbackMode" />
+	<!-- all kb feedback modes: -->
+	<!-- parameter name="FEEDBACK_MODE" value="immediateFeedbackMode" / --> 
+	<!-- parameter name="FEEDBACK_MODE" value="deferredFeedbackMode" / --> 
+	<!-- parameter 	name="FEEDBACK_MODE" value="skipFeedbackMode" /> -->
+
+	<!-- number of KB read only processes -->
+	<parameter name="KB_RO" value="0" />
+	<!-- KB name -->
+	
+	<parameter name="KB_NAME" value="Knowledge Base Tutorial" />
+	<!-- timeout for kb start -->
+	<parameter name="KB_START_TIMEOUT" value="60000" />
+	<!-- languages, delimit with comma: English,French,German -->
+	<parameter name="LANGS" value="English" />
+
+	<!-- kb versioning on true or false -->
+	<parameter name="KB_VERSION" value="false" />
+	<!-- dp versioning on true or false -->
+	<parameter name="DP_VERSION" value="false" />
+	<!-- decision plan dpn file -->
+	<parameter name="DP_FILE" value="DecisionPlanTutorial.dpn" />
+
+	<parameter name="NUM_FB"  value="3" />
+    <parameter name="FB_SECS"  value="10" />
+    <parameter name="FB_DELAY"  value="10" />
+	<!-- decision plan name -->
+	<parameter name="DP_NAME" value="Decision Plan Tutorial" />
+
+	<!-- decision plan read only instances -->
+	<parameter name="DP_RO" value="2" />
+	<!-- make sure the above DP file has KB_name as a referenced KB -->
+	<parameter name="LEARNING_MODE" value="online" />
+
+	<!-- ask Yigal, you can see this in the MC for each KB -->
+	<parameter name="LEARNING_SPEED" value="1" />
+
+	<!-- size of kb cache -->
+	<parameter name="CACHE_SIZE" value="1" />
+	<parameter name="SARC_FILE" value="" />
+	<parameter name="STRING"
+		value="We would like to archive our Lotus notes, what program would you suggest?" />
+	
+	<parameter name="ICM_HOME" value="C:\IBM\ContentClassification88" />
+
+	<test name="General Test" preserve-order="true">
+		<classes>
+			<class name="com.ibm.icm.testing.GeneralTest">
+
+			</class>
+			
+		</classes>
+	</test>
+</suite>

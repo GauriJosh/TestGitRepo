@@ -1,0 +1,25 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ICMVersionTest" verbose="3">
+
+	<!-- main version -->
+	<parameter name="URL" value="9.113.28.195" />
+	<parameter name="PORT" value="18087" />
+	<parameter name="VER_MAJOR" value="8" />
+	<!-- minor version -->
+	<parameter name="VER_MINOR" value="8" />
+	<!-- fp -->
+	<parameter name="FP" value="1" />
+
+
+	<test name="ICMVersionTest" preserve-order="true">
+
+		<classes>
+			<class name="com.ibm.icm.testing.ICMVersionTest">
+				<methods>
+					<exclude name="initialize"/>
+			
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

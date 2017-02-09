@@ -1,0 +1,408 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestDeepAdmin" verbose="3">
+
+	<parameter name="KB_NAME_NEW_STATISTICS_CATEGORY" value="online retail new cat" />
+
+	<!-- urhost of Classification server -->
+	<!-- Commented for jenkins-->
+    <!-- <parameter name="URL" value="localhost" /> 
+    <parameter name="PORT" value="18087" /> -->
+
+	<!-- main version -->
+	<parameter name="VER_MAJOR" value="8" />
+	<!-- minor version -->
+	<parameter name="VER_MINOR" value="8" />
+	<!-- fp -->
+	<parameter name="FP" value="1" />
+
+	<parameter name="YEAR" value="2014" />
+	<!-- path for data, some sample documents for classification -->
+	<parameter name="DATA_PATH" value="C:\develop\icm\automatic_tests\data" />
+	<parameter name="KB_FILE" value="KnowledgeBaseTutorial.kb" />
+	<!-- KB learning type. If the value is 'archive' then archive, any other 
+		value is non-archive -->
+	<parameter name="KB_MODE" value="regular" />
+	<!-- number of feedback and seconds before learning buffer is sent to server -->
+
+	<parameter name="NUM_FB" value="10" />
+	<parameter name="FB_SECS" value="10" />
+	<!-- number of feedback given to SARC before it teaches KB -->
+	<parameter name="ARCHIVE_FREQ" value="10" />
+	
+	
+	<!-- kb learning mode (you can see this in the MC) -->
+	<parameter name="FEEDBACK_MODE" value="immediateFeedbackMode" />
+	<!-- all kb feedback modes: -->
+	<!-- parameter name="FEEDBACK_MODE" value="immediateFeedbackMode" / --> 
+	<!-- parameter name="FEEDBACK_MODE" value="deferredFeedbackMode" / --> 
+	<!-- parameter 	name="FEEDBACK_MODE" value="skipFeedbackMode" /> -->
+
+	<!-- number of KB read only processes -->
+	<parameter name="KB_RO" value="0" />
+	<!-- KB name -->
+	<parameter name="KB_NAME" value="Knowledge Base Tutorial" />
+	<!-- timeout for kb start -->
+	<parameter name="KB_START_TIMEOUT" value="60000" />
+	<!-- languages, delimit with comma: English,French,German -->
+	<parameter name="LANGS" value="English" />
+	<!-- sarc file, send empty string if not needed -->
+	<parameter name="SARC_FILE" value="Knowledge Base Tutorial.sarc" />
+	<!-- s -->
+	<parameter name="STRING"
+		value="We would like to archive our Lotus notes, what program would you suggest?" />
+	<parameter name="TEXT"
+		value="We would like to archive our Lotus notes, what program would you suggest?" />
+	<!-- kb versioning on true or false -->
+	<parameter name="KB_VERSION" value="false" />
+	<!-- dp versioning on true or false -->
+	<parameter name="DP_VERSION" value="false" />
+	<!-- decision plan dpn file -->
+	<parameter name="DP_FILE" value="DecisionPlanTutorial.dpn" />
+
+
+	<!-- decision plan name -->
+	<parameter name="DP_NAME" value="Decision Plan Tutorial" />
+
+	<!-- decision plan read only instances -->
+	<parameter name="DP_RO" value="2" />
+	<!-- make sure the above DP file has KB_name as a referenced KB -->
+	<parameter name="LEARNING_MODE" value="online" />
+
+	<!-- ask Yigal, you can see this in the MC for each KB -->
+	<parameter name="LEARNING_SPEED" value="1" />
+
+	<!-- size of kb cache -->
+	<parameter name="CACHE_SIZE" value="1" />
+	<!-- path for docfilter manager -->
+	<parameter name="DFMPATH" value="C:\IBM\ContentClassification\Filters" />
+	<!-- path for Classification home -->
+	<parameter name="ICM_HOME" value="C:\IBM\ContentClassification" />
+
+	<!-- not used but leave in, email host discovered from machine name -->
+	<parameter name="EMAIL_HOST" value="" />
+	<!-- ports for creating new email servers delimited with space, make sure 
+		they are free, use values in 1890-18100 range -->
+	<parameter name="NEW_EMAIL_PORTS" value="18100 18098" />
+	<!-- name of Classification server process in Windows. check this -->
+	<parameter name="SERVICE_NAME" value="ICM88ProcessManager" />
+	<!-- timout for restarting Classification server -->
+	<parameter name="SERVICE_STOP_TIMEOUT" value="60000" />
+	<!-- give name for extra text nvp to be added to server and used in Decide -->
+	<parameter name="TEXT_NVP" value="TEXT_NVP" />
+
+	<!-- give name for extra text document to be added to server and used in 
+		Decide -->
+	<parameter name="DOCUMENT_NVP" value="DOCUMENT_NVP" />
+
+	<!-- give name for extra text binary to be added to server and used in Decide -->
+	<parameter name="BINARY_NVP" value="BINARY_NVP" />
+
+	<!-- ADDING NODES TO KB -->
+	<!-- for rule node -->
+	<parameter name="RULE_NODE" value="ContainsVisa" />
+	<!-- text for for rule node trigger -->
+	<parameter name="RULE_TEXT" value="Visa" />
+
+	<!-- name for rule node kb, you can reuse -->
+	
+	<parameter name="RULE_NODE_KB" value="online retail" />
+	<!-- name for rule node kb file -->
+
+	<parameter name="RULE_NODE_KB_FILE" value="online retail.kb" />
+	<!-- nvp for -->
+	<parameter name="STRING_NVP" value="Body" />
+
+
+	<!-- parameter name="GATHER_STATISTICS" value="0" / -->
+
+
+	<test name="DeepICMAdminTest" preserve-order="true">
+		<classes>
+			<class name="com.ibm.icm.testing.ServerFunctions">
+				<methods>
+					<!-- this helped between tests at one point -->
+					<!-- include name="startGC" / -->
+					<!-- creates the admin and runtime connectors used for all tests. -->
+					<include name="createConnections" />
+
+				</methods>
+			</class>
+
+			<class name="com.ibm.icm.testing.AdminFunctions">
+				<methods>
+					<!-- check version according to VER_MAJOR and VER_MINOR -->
+					<include name="getICMVersion" />
+					<!-- checks that after installation there is a es on 18094 -->
+					<include name="checkDefaultES" />
+					<!-- removes email servers on the NEW_EMAIL_PORTS port -->
+					<include name="removeEmailServerIfExists" />
+					<!-- adds email servers on the NEW_EMAIL_PORTS port returns error on 
+						failure -->
+					<include name="addEmailServers" />
+
+					<!--tests with ping, returned PID -->
+					<include name="testEmailServerWithPing" />
+
+					<!-- checks if the new email servers exist using getAllEmailFilterServers() -->
+					<include name="testEmailServerIfExists" />
+
+					<!-- stop icm server if local -->
+					<include name="stopService" />
+
+					<!-- start icm server if local -->
+					<include name="startService" />
+
+					<!--try to add an email server on a port that is not available, tests 
+						that correct error message returned. -->
+
+					<include name="testAddEmailServerThatAlreadyExists" />
+					<!-- test all: that listener is set to local, set local to false, reset 
+						to true -->
+					<include name="testAddAndRemoveLocalListener" />
+
+					<!-- test setting and getting getListenerPerformLoadBalance value (true 
+						or false) -->
+
+					<include name="testListenerPerformLoadBalance" />
+
+					<!--Test Knowledge Base -->
+					<!-- delete all DPs before test -->
+
+					<include name="deleteAllDPs" />
+					<!-- stop kb with KB_NAME check it is stopped -->
+
+					<!-- stops the KB_NAME if running. -->
+					<include name="stopKnowledgeBaseInstancesIfRunning" />
+
+					<!-- delete kb with KB_NAME check it is deleted -->
+					<include name="testDeleteKnowledgeBase" />
+
+					<!-- create kb with KB_NAME test that it then exists -->
+					<include name="testCreateKB" />
+					<include name="testKBDataConsistency" />
+					<!-- start KB check it is started -->
+					<include name="testStartKB" />
+
+					<!-- set KB setup according to: -->
+					<!--"CACHE_SIZE", "NUM_FB", "FB_SECS", "KB_VERSION", "FEEDBACK_MODE", 
+						"LEARNING_MODE", "LEARNING_SPEED", "ARCHIVE_FREQ", "LANGS" -->
+
+					<!-- check kb setup with get -->
+					<include name="testKBSetup" />
+
+					<!-- test KB "export" get it's name from server side, it takes a running 
+						KB -->
+					<!-- and copies it to a local *.kb file, checks the file exists and 
+						returns error on failure -->
+					<include name="testExportKB" />
+
+					<!-- tests the max file name it should be 50 as default. -->
+					<include name="testGetMaxSize" />
+
+					<!-- import a kb to running kb on server and check that the version 
+						is incremented by 1.1 -->
+					<include name="testImportKBcheckVersion" />
+
+					<!-- give feedback to kb to lowest scoring category and see that scores 
+						change and see that score -->
+					<!-- increases for that category with same text -->
+					<include name="testFeedbackAndcheckScore" />
+
+					<!-- local only: checks that imported version file matches original 
+						kb by checking score results. -->
+					<include name="testFeedbackAndcheckKBScoreFromBackup" />
+
+					<!-- local only: checks version number from imported version file. -->
+					<include name="testFeedbackAndcheckVersionFromBackup" />
+
+					<!-- create new kb -->
+					<include name="testCreateKB" />
+					<include name="testKBDataConsistency" />
+					<!-- start kb -->
+					<include name="testStartKB" />
+
+					<!-- sets, reads and checks KB statistic node properties -->
+					<include name="testKBNodeAttributes" />
+
+					<!-- Test Decision Plan -->
+
+					<!-- obvious -->
+					<include name="testCreateDPifNotExists" />
+					<include name="testStartDP" />
+
+					<!-- increment version and check version number -->
+					<include name="testCreateDPCheckVersion" />
+
+					<!-- increment KB version and check version number via DP -->
+					<include name="testCompareKBVersionsInDP" />
+
+					<!-- compare scores returned from KB and KB scores via DP -->
+					<include name="testCompareKBScoresInDP" />
+
+					<!-- import dp and make sure version is incremented correctly -->
+					<include name="testImportDPCheckVersion" />
+
+					<!-- import dp version file and make sure version is correct -->
+					<include name="testDPVersionBackup" />
+
+					<!-- compare version returned by suggest and decide for same KB -->
+					<include name="testCompareKBversionsInDP" />
+
+					<!-- run decideID and check dserver for new files -->
+					<include name="checkDserverAfterDecideID" />
+
+
+					<!-- Various -->
+
+					<!-- check excluded mime types reported by api against docfiltermanager.xml -->
+					<include name="checkExcludedMimeTypes" />
+
+					<!-- check excluded extensions against docfiltermanager.xml -->
+					<include name="checkExcludedExtensions" />
+
+					<!-- Statistics -->
+					<!-- check turn on gather statistics and checks statistics files. -->
+					<!-- works only on localhost and when there are no ROs (otherwise files 
+						cannot be predicted to test them -->
+					<include name="testStatistcsInterval" />
+
+					<!-- simple set true and false and checking get and set -->
+					<include name="testTrackEvents" />
+
+					<!-- checks if all fields mentioned in docfiltermanager.xml exist in 
+						dictionary -->
+					<include name="testCheckDFM2Dict" />
+
+					<!-- test with set and get -->
+					<include name="testAddAndRemoveLocalListener" />
+
+					<!-- test with set and get -->
+					<include name="testListenerPerformLoadBalance" />
+
+					<!-- simple test with set and get for a kb -->
+					<include name="testSetLearningMethod" />
+
+					<!-- add the text field of value of TEXT_NVP -->
+					<include name="addTextField" />
+
+
+					<!-- add the text field of value of BINARY_NVP -->
+
+					<include name="addBinaryDocumentEntry" />
+
+					<!-- add document NVP -->
+					<include name="addDictionaryDocumentEntry" />
+					<!-- see NodeTest for these and more tests -->
+					<include name="testAddRuleNode2KB" />
+					<include name="testNewRuleNodeName" />
+					<include name="testNewRuleNodeScore" />
+
+
+
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+	<!-- parameters below repeat -->
+	<test name="DeepICMAdminTestARCHIVE" preserve-order="true">
+		<parameter name="LEARNING_MODE" value="archive" />
+		<classes>
+			<class name="com.ibm.icm.testing.ServerFunctions">
+				<methods>
+					<include name="startGC" />
+					<include name="createConnections" />
+					<!--<include name="startPerformanceLog" />-->
+				</methods>
+			</class>
+
+
+			<class name="com.ibm.icm.testing.AdminFunctions">
+				<methods>
+
+					<!-- Test Knowledge Base -->
+					<include name="stopKnowledgeBaseInstancesIfRunning" />
+					<include name="testDeleteKnowledgeBase" />
+
+
+					<include name="testCreateKB" />
+					<include name="testKBDataConsistency" />
+					
+					<include name="testStartKB" />
+					<include name="testExportKB" />
+
+					<include name="testGetMaxSize" />
+
+					<!-- include name="testImportKBcheckVersion" / -->
+
+
+					<!-- include name="testFeedbackWithNoVersioning" / -->
+					<include name="testFeedbackAndcheckScore" />
+					<include name="testFeedbackAndcheckKBScoreFromBackup" />
+					<include name="testFeedbackAndcheckVersionFromBackup" />
+
+					<include name="testCreateKB" />
+					<include name="testKBDataConsistency" />
+					<include name="testStartKB" />
+					<include name="testKBNodeAttributes" />
+
+					<include name="testCreateKB" />
+					<include name="testKBDataConsistency" />
+					<include name="testStartKB" />
+					<include name="testArchivingMode" />
+
+					<!-- Test Decision Plan -->
+
+					<include name="testCreateDPifNotExists" />
+					<include name="testStartDP" />
+
+
+					<include name="testCreateDPCheckVersion" />
+					<include name="testCompareKBVersionsInDP" />
+					<include name="testCompareKBScoresInDP" />
+					<include name="testImportDPCheckVersion" />
+					<include name="testDPVersionBackup" />
+
+					<include name="testCompareKBversionsInDP" />
+					<include name="testDPVersionBackup" />
+
+					<!-- Various -->
+
+
+					<include name="checkExcludedMimeTypes" />
+					<include name="checkExcludedExtensions" />
+
+					<!-- I see this does not check anything, just turns it on -->
+					<include name="turnDebugInfoOn" />
+
+
+					<include name="testTrackEvents" />
+
+
+					<!-- Statistics -->
+
+					<include name="testStatistcsInterval" />
+
+					<!-- DocFilterManager -->
+					<include name="testCompareDFM2DPOutputFields" />
+					<include name="testCheckDFM2Dict" />
+
+					<include name="testAddAndRemoveLocalListener" />
+					<include name="testListenerPerformLoadBalance" />
+					<include name="testSetLearningMethod" />
+					<include name="testStatistcsInterval" />
+					<include name="testB2A2BDictionary" />
+
+					<include name="addTextField" />
+					<include name="addBinaryDocumentEntry" />
+					<include name="addDictionaryDocumentEntry" />
+
+					<include name="testAddRuleNode2KB" />
+					<include name="testNewRuleNodeName" />
+					<include name="testNewRuleNodeScore" />
+
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

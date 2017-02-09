@@ -1,0 +1,142 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="PSIRTtestSuite" verbose="3">
+
+	<parameter name="PORT" value="18087" />	
+    <parameter name="URL" value="9.113.28.195" />
+	<!-- parameter name="ICM_HOME" value="/data/qaUser/IBM/ClassificationModule/" />-->
+	<parameter name="ICM_MACHINE_USER" value="administrator" />
+	<parameter name="ICM_MACHINE_PASSWD" value="Admin@123" />
+	<parameter name="ICM_HOME" value="C:\IBM\ContentClassification" />
+	<parameter name="IS_WIN_OS" value="true"/>
+	
+	<parameter name="DOCUMENT_PATH" value="C:\IBM\ContentClassification\SampleData\IBM Products\IBM Global Financing\GFS03020USEN.pdf"></parameter>
+	<!-- ICM version -->
+	<parameter name="VER_MAJOR" value="8" />
+	<parameter name="VER_MINOR" value="8" />
+	<!--will be passed by jenkins
+	<parameter name="FP" value="1" />-->
+	
+	<!--<parameter name="DATA_PATH" value="C:\\develop\\icm\\automatic_tests\\data\\" /> -->
+	<parameter name="DATA_PATH" value="C:\Workspace\ICM_Automatic_Tests-master\ICM_Automatic_Tests-master\automatic_tests_head_a14\data\" />
+	<parameter name="KB_START_TIMEOUT" value="60000" />
+	<parameter name="DP_FILE" value="DeepFeatureTestNoHooks.dpn" />
+	<parameter name="LEARNING_MODE" value="regular" />
+	<parameter name="LEARNING_SPEED" value="1" />
+	<parameter name="SARC_FILE" value="" />
+	<parameter name="NVP_NAME" value="SerialNumber"/>
+	<parameter name="NVP_VALUE" value="GFS03020"/>
+	
+
+	<!-- This is the path to the dp file. -->
+	<parameter name="DP_FILE" value="DecisionPlanTutorial.dpn" />
+	<!-- decision plan name -->
+	<parameter name="DP_NAME" value="Decision Plan Tutorial" />
+
+	<parameter name="DP_VERSION" value="no" />
+	<!-- the name of the dp on the server, will be created. -->
+	<parameter name="LEARNING_SPEED" value="1" />
+	<parameter name="SARC_FILE" value="" />
+	<parameter name="LANGS" value="English" />
+	<parameter name="KB_NAME" value="Knowledge Base Tutorial" />
+	<parameter name="KB_FILE" value="KnowledgeBaseTutorial.kb" />
+	<!-- KB learning type. If the value is 'archive' then archive, any other 
+		value is non-archive -->
+	<parameter name="KB_MODE" value="regular" />
+	<parameter name="RULE_NODE_KB" value="online retail" />
+	<parameter name="DP_RO" value="0" />
+	<parameter name="KB_RO" value="0" />
+	<parameter name="EXPECTED_JAVA_VERSION" value="1.6.0" />
+	<!-- <parameter name="EXPECTED_JAVA_BUILD" value="SR16 FP20" />
+	<parameter name="EXPECTED_JAVA_BUILD" value="SR16 FP21" />-->
+	
+	<test name="CheckVersionsTest" preserve-order="true">
+		<classes>
+					<class name="com.ibm.icm.testing.ServerFunctions">
+			
+				<methods>
+
+					<include name="createConnections" />
+
+				</methods>
+			</class>
+			<class name="com.ibm.icm.testing.AdminFunctions">
+				
+				<methods>
+					
+					<include name="getICMVersion"/>
+				</methods>
+			</class>
+
+			<class name="com.ibm.icm.testing.PSIRTtest">
+				<methods>
+					<include name="checkJavaVersion" />
+					<include name="checkInterimFixVersion"/>
+
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="DecideTest" preserve-order="true">
+		<parameter name="DP_FILE" value="DecisionPlanTutorial.dpn" />
+		<parameter name="DP_NAME" value="Decision Plan Tutorial" />
+		<classes>
+
+			<class name="com.ibm.icm.testing.ServerFunctions">
+			
+				<methods>
+
+					<include name="createConnections" />
+
+				</methods>
+			</class>
+
+			<class name="com.ibm.icm.testing.AdminFunctions">
+				
+				<methods>
+					<include name="testStopDecisionPlanInstancesIfRunning" />
+					<include name="testDeleteDecisionPlanIfExists" />
+					<include name="testCreateKB" />
+					<include name="testStartKB" />
+					<include name="testCreateDPifNotExists" />
+					<include name="testStartDP" />
+					<include name="testDPRunning" />
+
+				</methods>
+			</class>
+
+			<class name="com.ibm.icm.testing.PSIRTtest">
+				<methods>
+					<include name="decideTest"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	
+	<test name="DecideWithHooks" preserve-order="true">
+		<parameter name="DP_FILE" value="SampleHook.dpn" />
+		<parameter name="DP_NAME" value="SampleHook" />
+		<parameter name="DOC_FIELDS" value="Body"/>
+		<parameter name="EMAIL_FIELDS" value="ICM_Subject,ICM_To,ICM_From,ICM_SentDate,ICM_From_Address,Body"/>	
+		<parameter name="INPUT_FOLDER_PATH" value="JavaCommandLine8.8WithPrintVersion/Data/" />
+		<parameter name="FIRED_RULE" value="SetAttributeStatic ^^ TestAttributesInMemory"/>
+		<parameter name="PRINT_DECIDSION_RESULTS" value="false"/>
+		
+		<classes>
+			<class name="com.ibm.icm.testing.AdminFunctions">
+				<methods>					
+					<include name="testStopDecisionPlanInstancesIfRunning" />
+					<include name="testDeleteDecisionPlanIfExists" />
+					<include name="testCreateDPifNotExists" />
+					<include name="testStartDP" />
+					<include name="testDPRunning" />
+				</methods>
+			</class>
+			<class name="com.ibm.icm.testing.PSIRTtest">
+				<methods>
+					<include name="decideTestWithHooks"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

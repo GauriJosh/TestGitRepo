@@ -1,0 +1,284 @@
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestServerConfigurations8" verbose="3">
+
+	<parameter name="VER_MAJOR" value="8" />
+	<parameter name="VER_MINOR" value="8" />
+	
+	<parameter name="FP" value="1" />
+	<parameter name="VERSION" value="8.8" />
+	<parameter name="NEW_STATISTICS_NODE" value="Service Lab" />
+	<parameter name="KB_NAME_NEW_STATISTICS_CATEGORY" value="online retail new cat" />
+	<parameter name="DATA_PATH" value="C:\develop\ICM\automatic_tests\data" />
+	<parameter name="KB_FILE" value="KnowledgeBaseTutorial.kb" />
+	<parameter name="KB_NAME" value="Knowledge Base Tutorial kbtests1" />
+	<parameter name="STRING_NVP" value="Body" />
+	<parameter name="SARC_FILE" value="Knowledge Base Tutorial.sarc" />
+	<parameter name="KB_START_TIMEOUT" value="80000" />
+	<parameter name="KB_RO" value="0" />
+	<parameter name="STRING" value="We would like to archive our Lotus notes, what program would you suggest?" />
+	<parameter name="DP_VERSION"  value="true" />
+	<parameter name="DP_RO"  value="1" />
+	<parameter name="DP_FILE" value="DeepFeatureTestNoHooks.dpn" />
+	<parameter name="DP_FILE" value="DecisionPlanTutorial.dpn" />
+	<parameter name="DP_NAME" value="" />
+	<parameter name="FB_DELAY"  value="10" />
+	<!-- make sure the above DP file has KB_name as a referenced KB -->
+	<parameter name="DFMPATH" value="C:\IBM\ContentClassification\Filters" />
+	<parameter name="ICM_HOME" value="C:\IBM\ContentClassification88" />
+	<parameter name="DOC_FOLDER" value="C:\develop\Trunk\Classification8.8 FP2\data\docs" />
+
+	<parameter name="SERVICE_NAME" value="ICM88ProcessManager" />
+	<parameter name="SERVICE_STOP_TIMEOUT" value="1000" />
+	<parameter name="KB_ARCHIVING" value="false" />
+	<parameter name="BINARY_NVP" value="BinaryField" />
+	<parameter name="DOCUMENT_NVP" value="MyDocument" />
+	<parameter name="TEXT_NVP" value="TextField" />
+	<parameter name="TEXT" value="do you have an email server?" />
+	<parameter name="LOG_FILE" value="performance.csv" />
+	
+	
+	<parameter name="LOG_FILE"  value="serverconfiglog.csv" />
+    <parameter name="GOLD_FOLDER" value="C:\develop\icm\automatic_tests\data\golds\" />
+	<!-- if  COMPARE2GOLD is yes then  it will look for gold files here-->
+
+	<parameter name="OUTPUT_FOLDER"	value="C:\develop\ICM\automatic_tests\tmp\InputFieldsOutputFilesResults" />
+    <parameter name="ITERATIONS" value="1" />
+	
+	<test name="General KB Tests" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+        <parameter name="GOLD_FOLDER"  value="C:\develop\icm\automatic_tests\data\golds\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="deferredFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="online" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="8" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="FB_DELAY"  value="10" />
+        <parameter name="GATHER_STATISTICS"  value="0" />
+        <parameter name="ARCHIVE_FREQ"  value="3" />
+        <parameter name="KB_RO"  value="1" />
+        <parameter name="SARC_FILE" value="" />
+        
+        
+        <parameter name="RULE_NODE" value="ContainsVisa" />
+		<parameter name="RULE_TEXT" value="Visa" />
+		<parameter name="RULE_NODE_KB" value="online retail" />
+		<parameter name="RULE_NODE_KB_FILE" value="online retail.kb" />
+		<parameter name="STRING_NVP" value="Body" />
+		<classes>
+			<class name="com.ibm.icm.testing.GeneralKBTest">
+			</class>
+		</classes>
+	</test>
+	
+	
+	
+	<test name="Create KB, immediate feedback mode, archive frequency: 3 .sarc, save feedback: 10 sec or 8 feedbacks" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="immediateFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="archive" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="8" /> <!-- Train when number of feedbacks are accumulated -->
+        <parameter name="FB_SECS"  value="10" /> <!-- Train when number of seconds have passed -->     
+        <parameter name="GATHER_STATISTICS"  value="0" />
+        <parameter name="ARCHIVE_FREQ"  value="3" /><!-- Archive frequency in feedbacks (Process every X feedbacks) -->
+        <parameter name="KB_RO"  value="2" />
+       
+		<classes>
+			<class name="com.ibm.icm.testing.ParametrizedKBTest">
+			</class>
+		</classes>
+	</test>
+	<test name="Create KB, immediate feedback mode, archive frequency: 3 .sarc, save feedback: 10 sec or 3 feedbacks" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+        <parameter name="GOLD_FOLDER"  value="C:\develop\icm\automatic_tests\data\golds\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="immediateFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="archive" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="3" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="ARCHIVE_FREQ"  value="3" />
+        <parameter name="KB_RO"  value="1" />
+		<classes>
+			<class name="com.ibm.icm.testing.ParametrizedKBTest">
+			</class>
+		</classes>
+	</test>
+	
+	
+	<!--  -->
+	<test name="Create KB, immediate feedback mode, archive frequency: 11 .sarc, save feedback: 10 sec or 12 feedbacks" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+        <parameter name="GOLD_FOLDER"  value="C:\develop\icm\automatic_tests\data\golds\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="immediateFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="archive" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="12" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="ARCHIVE_FREQ"  value="11" />
+        <parameter name="KB_RO"  value="1" />
+    
+		<classes>
+			<class name="com.ibm.icm.testing.ParametrizedKBTest">
+			</class>
+		</classes>
+	</test>
+	
+	
+	<test name="Create KB, skip feedback mode, archive frequency: 11 .sarc, save feedback: 10 sec or 12 feedbacks" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+		<parameter name="GOLD_FOLDER"  value="C:\develop\icm\automatic_tests\data\golds\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="skipFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="archive" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="12" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="ARCHIVE_FREQ"  value="11" />
+        <parameter name="KB_RO"  value="1" />
+		<classes>
+			<class name="com.ibm.icm.testing.ParametrizedKBTest">
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Create KB, skip feedback mode, archive frequency: 3 .sarc, save feedback: 10 sec or 3 feedbacks" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+        <parameter name="GOLD_FOLDER"  value="C:\develop\icm\automatic_tests\data\golds\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="skipFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="archive" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="3" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="FB_DELAY"  value="10" />
+        <parameter name="GATHER_STATISTICS"  value="0" />
+        <parameter name="ARCHIVE_FREQ"  value="3" />
+        <parameter name="KB_RO"  value="1" />
+       
+		<classes>
+			<class name="com.ibm.icm.testing.ParametrizedKBTest">
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Create KB, skip feedback mode, archive frequency: 3 .sarc, save feedback: 10 sec or 8 feedbacks" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+        <parameter name="GOLD_FOLDER"  value="C:\develop\icm\automatic_tests\data\golds\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="skipFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="archive" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="8" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="FB_DELAY"  value="10" />
+        <parameter name="GATHER_STATISTICS"  value="0" />
+        <parameter name="ARCHIVE_FREQ"  value="3" />
+        <parameter name="KB_RO"  value="1" />
+       
+		<classes>
+			<class name="com.ibm.icm.testing.ParametrizedKBTest">
+			</class>
+		</classes>
+	</test>
+
+
+	<test name="Create KB, skip feedback mode, online, save feedback: 10 sec or 8 feedbacks" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+        <parameter name="GOLD_FOLDER"  value="C:\develop\icm\automatic_tests\data\golds\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="skipFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="online" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="8" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="FB_DELAY"  value="10" />
+        <parameter name="GATHER_STATISTICS"  value="0" />
+        <parameter name="ARCHIVE_FREQ"  value="3" />
+        <parameter name="KB_RO"  value="1" />
+        <parameter name="SARC_FILE" value="" />
+        
+		<classes>
+			<class name="com.ibm.icm.testing.ParametrizedKBTest">
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Create KB, immidiate feedback mode, online, save feedback: 10 sec or 8 feedbacks" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+        <parameter name="GOLD_FOLDER"  value="C:\develop\icm\automatic_tests\data\golds\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="immediateFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="online" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="8" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="FB_DELAY"  value="10" />
+        <parameter name="GATHER_STATISTICS"  value="0" />
+        <parameter name="ARCHIVE_FREQ"  value="3" />
+        <parameter name="KB_RO"  value="1" />
+        <parameter name="SARC_FILE" value="" />
+
+		<classes>
+			<class name="com.ibm.icm.testing.ParametrizedKBTest">
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Create KB, deffered feedback mode, online, save feedback: 10 sec or 8 feedbacks" preserve-order="true" parallel="false">
+		<parameter name="OUTPUT_FOLDER"  value="C:\develop\icm\automatic_tests\tmp\InputFieldsOutputFilesResults\BVT" />
+        <parameter name="GOLD_FOLDER"  value="C:\develop\icm\automatic_tests\data\golds\BVT" />
+        <parameter name="KB_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="deferredFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="online" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="8" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="FB_DELAY"  value="10" />
+        <parameter name="GATHER_STATISTICS"  value="0" />
+        <parameter name="ARCHIVE_FREQ"  value="3" />
+        <parameter name="KB_RO"  value="1" />
+        <parameter name="SARC_FILE" value="" />
+       
+		<classes>
+			<class name="com.ibm.icm.testing.ParametrizedKBTest">
+			</class>
+		</classes>
+	</test>
+	
+	
+</suite>

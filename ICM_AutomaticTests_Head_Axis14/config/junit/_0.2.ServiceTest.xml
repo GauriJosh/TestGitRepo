@@ -1,0 +1,24 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ServiceTests" verbose="3">
+
+<parameter name="URL" value="9.113.28.195" />
+	<parameter name="SERVICE_NAME" value="ICM88ProcessManager" />
+	<parameter name="PORT" value="18087" />
+	<parameter name ="PROCESSES_NAMES" value="bnsProcessManager88,bnsDServer88,bnsAdmin88,bnsListener88,bnsWatchdog88"/>
+	<!-- timout for restarting Classification server -->
+	<parameter name="SERVICE_STOP_TIMEOUT" value="60000" />
+	<parameter name="IS_WIN_OS" value="true" />
+	<parameter name="ICM_MACHINE_USER" value="administrator" />
+	<parameter name="ICM_MACHINE_PASSWD" value="Admin@123" />
+	<parameter name="ICM_HOME" value="C:\IBM\ContentClassification" />
+	<test name="ServiceTest" preserve-order="true">
+
+		<classes>
+			<class name="com.ibm.icm.testing.ServiceTest">
+				<methods>
+					<exclude name="initialize"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

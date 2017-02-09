@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ListenerTests" verbose="3">
+
+	<test name="ListenerTest" preserve-order="true">
+
+		<classes>
+			<class name="com.ibm.icm.testing.ListenerTest">
+				<methods>
+					<exclude name="initialize"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

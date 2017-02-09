@@ -1,0 +1,100 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestDPTriggersActions" verbose="3">
+
+<!-- a test that sends a single request to a DP. The DP named below has a set of many rules that test many or most triggers and actions (not including hooks). -->
+<!-- each trigger/action pair has an expected results. If the results are unexpected a meaningful message is added to the output message. -->
+<!-- the assert is triggered if the error message field is not empty, displays it. -->
+
+	<!--  ICM Variables -->
+	
+	<!--  Some possible values for URL -->
+	<!-- 
+	<parameter name="URL" value="jaix6dev4" />
+	<parameter name="URL" value="9.148.54.43" />
+	<parameter name="URL" value="jsun5bld" />
+	<parameter name="URL" value="9.148.49.71" />
+	<parameter name="URL" value="9.148.54.178" />
+	<parameter name="URL" value="9.148.54.94" />
+	<parameter name="URL" value="jaix6dev3" />  -->
+
+	<!--  Default value for URL -->	
+	<!--  <parameter name="URL" value="localhost" />-->
+
+	<!--  Default value for Port -->
+	<!--  <parameter name="PORT" value="18087" />-->
+
+	<!--  Default value for ICM_HOME on Unix -->	
+	<!--  <parameter name="ICM_HOME" value="/data/users/qauser/IBM/ContentClassification" /> -->
+
+	<!--  Default value for ICM_HOME on Windows -->	
+	<!-- <parameter name="ICM_HOME" value="C:\\IBM\\ContentClassification" /> -->
+
+	<!--  Test Variables -->
+	<!--  <parameter name="DATA_PATH" value="C:\\develop\\icm\\automatic_tests\\data\\" /> -->
+	
+	<parameter name="KB_START_TIMEOUT" value="60000" />
+	<parameter name="DP_FILE" value="DeepFeatureTestNoHooks.dpn" />
+	<parameter name="DP_NAME" value="DeepFeatureTestNoHooks" />
+	
+	<!--  TODO: what is this setting? -->
+	<parameter name="DP_VERSION" value="no" />
+	<parameter name="KB_FILE" value="online retail.kb" />
+	<parameter name="KB_NAME" value="online retail" />
+	<parameter name="LANGS" value="English" />
+	
+	<!-- These are the number of Read Only instances to create for the DP and the KB -->
+	<parameter name="DP_RO" value="1" />
+	<parameter name="KB_RO" value="2" />
+
+	<!-- LEARNING_MODE can be either "online" or "archive" -->
+	<parameter name="LEARNING_MODE"  value="online" />
+	<parameter name="LEARNING_SPEED"  value="1" />
+	<parameter name="SARC_FILE" value="" />
+	
+
+	<!--  Tests -->
+	
+	<test name="DPFeaturesTest" preserve-order="true">
+		<classes>
+
+		<!--********************************************    NOTE  ********************************************
+			* There were calls to tests in ServerFunctions and AdminFunctions as part of this test suite.
+			* Those tests were used to initialize the environment (create kb, dp, etc.)
+			* This was replaced with code in the DPFeaturesTest that calls a new class called ServerAdminUtils.
+			* Now, the @BeforeSuite of the DPFeaturesTest initializes the environment, using utility functions
+			* in ServerAdminUtils to carry out the initialization that was done previously using the other classes
+			* Leaving the list of included classes here for reference... 
+			  
+			<class name="com.ibm.icm.testing.ServerFunctions">
+				<methods>
+					<include name="createConnections" />
+				</methods>
+			</class>
+
+			<class name="com.ibm.icm.testing.AdminFunctions">
+				<methods>
+					<include name="testDeleteDecisionPlanIfExists" />
+					<include name="testCreateKB" />
+					<include name="testStartKB" />
+					<include name="testStopDecisionPlanInstancesIfRunning" />
+					<include name="testDeleteDecisionPlanIfExists" />
+					<include name="testCreateDPifNotExists" />
+					<include name="testStartDP" />
+					<include name="testDPRunning" />
+				</methods>
+			</class>
+-->
+
+			<class name="com.ibm.icm.testing.DPFeaturesTest">
+				<!-- <methods>
+
+				 Moved to setUp of the test code...
+					<include name="Connect2Server" />
+				
+					<include name="testRunDecide" />
+
+				</methods>-->
+			</class>
+		</classes>
+	</test>
+</suite>

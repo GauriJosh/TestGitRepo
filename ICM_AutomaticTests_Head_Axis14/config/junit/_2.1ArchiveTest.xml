@@ -1,0 +1,53 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Archive KB Test" verbose="3">
+	
+	<parameter name="VERSION" value="8.8" />
+
+	<!-- parameter name="ICM_HOME" value="C:\IBM\ContentClassification" / -->
+	<parameter name="ICM_HOME" value="C:\IBM\ContentClassification88" />
+	<parameter name="DATA_PATH" value="C:\develop\ICM\automatic_tests\data" />
+	<parameter name="KB_FILE" value="KnowledgeBaseTutorial.kb" />
+	<parameter name="KB_NAME" value="Knowledge Base Tutorial archive test" />
+	<parameter name="SARC_FILE" value="" />
+	<parameter name="FEEDBACK_FILE" value="feedbacks4ServiceLabCategory.txt" />
+	<parameter name="NEW_STATISTICS_NODE" value="Service Lab" />
+	<parameter name="KB_START_TIMEOUT" value="80000" />
+	<parameter name="STRING_NVP" value="Body" />
+	<parameter name="STRING" value="We would like to archive our Lotus notes, what program would you suggest?" />
+
+	<parameter name="DP_FILE" value="DeepFeatureTestNoHooks.dpn" />
+	<parameter name="DP_NAME" value="" />
+	<parameter name="KB_ARCHIVING" value="false" />
+	<parameter name="TEXT" value="do you have an email server?" />
+	
+	<test name="Create KB, immediate feedback mode, archive frequency: 3 .sarc, save feedback: 10 sec or 8 feedbacks, 2 Read-Only processes" preserve-order="true" parallel="false">	
+		<parameter name="KB_VERSION"  value="true" />
+        <parameter name="DP_VERSION"  value="true" />
+        <parameter name="FEEDBACK_MODE"  value="immediateFeedbackMode" />
+        <parameter name="LANGS"  value="English" />
+        <parameter name="LEARNING_MODE"  value="archive" />
+        <parameter name="LEARNING_SPEED"  value="1" />
+        <parameter name="MODES"  value="*decide*" />
+        <parameter name="CACHE_SIZE"  value="0" />
+        <parameter name="NUM_FB"  value="8" />
+        <parameter name="FB_SECS"  value="10" />
+        <parameter name="FB_DELAY"  value="10" />
+        <parameter name="ARCHIVE_FREQ"  value="3" />
+        <parameter name="KB_RO"  value="2" />
+        <parameter name="DP_RO"  value="1" />
+        <classes>
+			<class name="com.ibm.icm.testing.ArchiveKBTest">
+				<methods>
+        			<exclude name="testICMVersion" />
+        			<exclude name="initialize" />
+      			</methods>
+			</class>
+			<class name="com.ibm.icm.testing.ICMBaseTest">
+				<methods>
+        			<exclude name="initialize" />
+      			</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

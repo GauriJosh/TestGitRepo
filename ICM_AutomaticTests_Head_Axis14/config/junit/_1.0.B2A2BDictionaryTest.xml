@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="B2A2BDictionaryTests" verbose="3">
+
+
+	<parameter name="SERVICE_NAME" value="ICM88ProcessManager" />
+	<parameter name ="PROCESSES_NAMES" value="bnsProcessManager88,bnsDServer88,bnsAdmin88,bnsListener88,bnsWatchdog88"/>
+	<!-- timout for restarting Classification server -->
+	<parameter name="SERVICE_STOP_TIMEOUT" value="60000" />
+	<parameter name="DATA_PATH" value="C:\develop\icm\automatic_tests\data" />
+	
+	<test name="B2A2BDictionaryTest" preserve-order="true">
+
+		<classes>
+			<class name="com.ibm.icm.testing.B2A2BDictionaryTest">
+				<methods>
+					<exclude name="initialize"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>
